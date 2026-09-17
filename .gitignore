@@ -1,0 +1,5 @@
+node_modules/
+preview/
+output/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,43 @@
+html{height:auto;overflow-x:clip;overflow-y:auto}
+body{height:auto;overflow:visible}
+main{position:relative;inset:auto}
+.scene{position:relative;inset:auto;width:100%;height:max(100svh,720px);min-height:720px;overflow:clip;border-bottom:1px solid #ffffff65}
+.scene::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(transparent,#ffffff12);pointer-events:none}
+.scene.entering{animation:none}
+.scene-caption>span{color:#edf6ff}
+.scene-dock{max-width:calc(100vw - 32px)}
+#inkCanvas{touch-action:pan-y}
+#drawInk[aria-pressed=true]{background:#edc9dc;color:#754967}
+#news{height:auto;min-height:100svh;padding-bottom:120px}
+.news-list{overflow:visible}
+.news-layout{flex:none}
+.analysis-panel{position:sticky;top:90px}
+.aa-figure{margin:36px 0 0;padding:24px;background:#ffffff72;border:1px solid #fff}
+.aa-figure img{display:block;width:100%;height:auto}
+.aa-figure figcaption{font:13px/1.8 var(--mono);color:#677587;margin-top:16px}
+.aa-figure figcaption a{text-decoration:underline;text-underline-offset:3px}
+#arcade{padding:0;background:#def0e6;transition:background .65s}
+#arcade[data-mode=memory]{background:#f0e5cf}
+.arcade-switch{position:absolute;z-index:3;top:92px;left:50%;transform:translateX(-50%);display:grid;grid-template-columns:1fr 1fr;background:#ffffff45;border:1px solid #fffc;padding:5px;box-shadow:0 8px 28px #62817412;backdrop-filter:blur(16px)}
+.arcade-switch button{font:13px var(--mono);letter-spacing:1px;min-width:175px;padding:12px 20px;z-index:1;background:transparent;border-color:transparent}
+.arcade-track{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);background:#ffffff8c;box-shadow:inset 0 -2px #e080b1;transition:transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none}
+#arcade[data-mode=memory] .arcade-track{transform:translateX(100%)}
+.arcade-stage{height:100%;min-height:inherit;position:relative}
+.arcade-stage #lights,.arcade-stage #memory{position:absolute;inset:0;padding:174px 7vw 110px;background:none}
+.arcade-pane[hidden]{display:none!important}
+@media(max-width:600px){
+  .scene{height:auto;min-height:max(100svh,800px);overflow:clip}
+  #rain,#ink{height:max(100svh,800px)}
+  .rain-composition{min-height:560px}
+  #terminal{min-height:850px}
+  #rhythm{min-height:850px;justify-content:center}
+  .rhythm-stage{flex:none;height:430px}
+  #observatory{min-height:760px}
+  #synth{min-height:760px}
+  .analysis-panel{position:static}
+  .aa-figure{margin-top:12px;padding:10px}
+  #arcade{height:max(100svh,850px)}
+  .arcade-switch{top:85px}
+  .arcade-switch button{min-width:150px;padding:10px 12px}
+  .arcade-stage #lights,.arcade-stage #memory{padding:154px 22px 100px}
+}

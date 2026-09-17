@@ -1,0 +1,116 @@
+{
+  "fetchedAt": "2026-09-17T01:09:54.831Z",
+  "kind": "official-feed-headlines",
+  "articles": [
+    {
+      "title": "Our framework for reporting model misalignment",
+      "excerpt": "OpenAI shares a framework for tracking, investigating, and disclosing model misalignment, alongside…",
+      "url": "https://openai.com/index/model-misalignment-reporting-framework",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-16T17:00:00.000Z"
+    },
+    {
+      "title": "Helping older adults use AI in everyday life",
+      "excerpt": "OpenAI and AARP are bringing free, hands-on ChatGPT workshops to 1,000 older…",
+      "url": "https://openai.com/index/helping-older-adults-use-ai-in-everyday-life",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-16T16:00:00.000Z"
+    },
+    {
+      "title": "Reimagining advertising with AI",
+      "excerpt": "Explore new AI-powered advertising experiences from OpenAI, including Sponsored Agents, tools for…",
+      "url": "https://openai.com/index/reimagining-advertising-with-ai",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-16T13:00:00.000Z"
+    },
+    {
+      "title": "How to connect AI usage to business value",
+      "excerpt": "Learn how ChatGPT Work and Codex analytics help teams understand AI usage…",
+      "url": "https://openai.com/index/how-to-connect-ai-usage-to-business-value",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-16T12:00:00.000Z"
+    },
+    {
+      "title": "How workers are unlocking new ways of working",
+      "excerpt": "New OpenAI Economic Research shows how workers use AI beyond traditional roles…",
+      "url": "https://openai.com/index/unlocking-new-ways-of-working",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-16T09:00:00.000Z"
+    },
+    {
+      "title": "AI for Societal Impact",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Health_Header.gif\">Explore this collection to see how experts and local leaders are…",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-for-societal-impact/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-15T16:00:00.000Z"
+    },
+    {
+      "title": "Building AI to accelerate science and improve lives",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/SocialShare_hD2gcAw.max-600x600.format-webp.webp\">The true measure of AI is who it helps. Here’s how…",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-applications-science-people/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-15T16:00:00.000Z"
+    },
+    {
+      "title": "AI for everyone in every language",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AI_languages_blog_social.max-600x600.format-webp.webp\">We’re moving beyond traditional text translation to build models that understand…",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-for-every-language/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-15T16:00:00.000Z"
+    },
+    {
+      "title": "New insights from Google’s AI & Economy ATLAS",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ATLAS-hero.max-600x600.format-webp.webp\">We’ve translated ATLAS’s millions of global data points into an interactive,…",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-economy-atlas-september-2026/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-15T13:00:00.000Z"
+    },
+    {
+      "title": "Watch astronaut Christina Koch and Google’s James Manyika discuss space, technology, and discovery.",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dialogues_Christina-Koch_social.max-600x600.format-webp.webp\">Christina Koch sits down with James Manyika, Google’s Senior Vice…",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/dialogues-christina-koch/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-14T19:00:00.000Z"
+    },
+    {
+      "title": "DevFest is back",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/DevFest.max-600x600.format-webp.webp\">DevFest 2026 is back and here’s how you can connect with…",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/devfest2026/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-14T16:00:00.000Z"
+    },
+    {
+      "title": "How Fyxer built an AI executive assistant people trust",
+      "excerpt": "Fyxer uses OpenAI models, fine-tuning, memory, and real user feedback to organize…",
+      "url": "https://openai.com/index/fyxer",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-14T12:00:00.000Z"
+    },
+    {
+      "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
+      "excerpt": "Perplexity uses Astra to write communications, change software, and monitor production systems,…",
+      "url": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
+      "source": "OpenAI",
+      "publishedAt": "2026-09-14T00:00:00.000Z"
+    },
+    {
+      "title": "3 ways to prep for your next big race with Search",
+      "excerpt": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Search_Race_Running_Tips.max-600x600.format-webp.webp\">Search can help runners get race-day ready with registration alerts, tailored…",
+      "url": "https://blog.google/products-and-platforms/products/search/running-race-training-tips/",
+      "source": "Google AI",
+      "publishedAt": "2026-09-10T16:00:00.000Z"
+    }
+  ],
+  "sources": [
+    {
+      "name": "OpenAI",
+      "url": "https://openai.com/news/rss.xml",
+      "status": "ok"
+    },
+    {
+      "name": "Google AI",
+      "url": "https://blog.google/technology/ai/rss/",
+      "status": "ok"
+    }
+  ]
+}
