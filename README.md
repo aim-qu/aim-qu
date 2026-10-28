@@ -1,18 +1,18 @@
 <!-- live:sky -->
-<p align="center"><img src="./live/sky.svg?v=aocc" width="100%" alt="今夜21時の東の空（東経135°・北緯35°）"></p>
+<p align="center"><img src="./live/sky.svg?v=aocf" width="100%" alt="いまの東北東の空（東経135°・北緯35°）"></p>
 
 <details>
 <summary><sub>星の名前</sub></summary>
-<p align="center"><img src="./live/sky-names.svg?v=aocc" width="100%" alt="同じ空に月・惑星・明るい星・星座の名前を重ねたもの"></p>
+<p align="center"><img src="./live/sky-names.svg?v=aocf" width="100%" alt="同じ空に月・惑星・明るい星・星座の名前を重ねたもの"></p>
 </details>
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aoc0" width="100%" alt="障子に映る竹の影。七十二候の霜降初候「霜始降（しもはじめてふる）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aocf" width="100%" alt="障子に映る竹の影。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
 
 <details>
 <summary><sub>障子をあける</sub></summary>
-<p align="center"><img src="./live/shoji-open.svg?v=aoc0" width="100%" alt="障子を一枚あけて見た外の竹林を、水墨の絵にしたもの"></p>
+<p align="center"><img src="./live/shoji-open.svg?v=aocf" width="100%" alt="障子を一枚あけて見た外の竹林を、水墨の絵にしたもの"></p>
 </details>
 <!-- /live:shoji -->
 
