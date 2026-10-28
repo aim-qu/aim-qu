@@ -157,11 +157,18 @@ export function renderGarden({ L, date, x0, x1, H, S, Z1 }) {
     }).join('')).join('');
     const near = (t) => { const p = to(t.x, t.z); return p[0] > -150 && p[0] < w + 150 && p[1] > -150 && p[1] < H + 150; };
     if (Ly.sway) {
-      // 手前の二層は、枝ごとに小枝と葉をまとめて小さな絵にし、枝の根元を軸にそよがせる
+      // 手前の二層は、枝ごとに小枝と葉をまとめて小さな絵にし、枝の根元を軸にそよがせる。
+      // 描くのは、あけた所から稈が見えている竹の枝だけにする。閉じた障子の向こうに立つ竹の枝が
+      // 横から差し込んでいると、その影を障子の上に探したくなるが、斜めの光では影が画面の外へ落ちて見つからない
+      const shown = new Set(g.culms.filter(c => {
+        const p = to(c.xAt(EYE_Z), EYE_Z), cw = c.D * S * k;
+        return p[0] > cw / 2 && p[0] < w - cw / 2;
+      }).map(c => c.i));
       const groups = new Map();
       const of = (bid) => groups.get(bid) ?? groups.set(bid, { br: [], tf: [] }).get(bid);
-      for (const b of g.branches) of(b.bid).br.push(b);
-      for (const t of g.tufts) if (near(t)) of(t.bid).tf.push(t);
+      const own = (bid) => shown.has(+bid.split('_')[0]);
+      for (const b of g.branches) if (own(b.bid)) of(b.bid).br.push(b);
+      for (const t of g.tufts) if (near(t) && own(t.bid)) of(t.bid).tf.push(t);
       const reach = (Ly.L.leaf[0] + Ly.L.leaf[1]) * S * k + 14;
       for (const grp of groups.values()) {
         if (!grp.tf.length) continue;
@@ -203,14 +210,17 @@ export function renderGarden({ L, date, x0, x1, H, S, Z1 }) {
     kfs.push(s + '}');
   }
   const mistMask = `<linearGradient id="mg" x1="0" y1="${f1(horizon - 140)}" x2="0" y2="${H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#737373"/><stop offset="1" stop-color="#1a1a1a"/></linearGradient>`
-    + `<mask id="mm" maskUnits="userSpaceOnUse" x="-40" y="-40" width="${w + 80}" height="${H + 80}"><rect x="-40" y="-40" width="${w + 80}" height="${H + 80}" fill="url(#mg)"/></mask>`;
+    + `<mask id="mm" maskUnits="userSpaceOnUse" x="-40" y="-40" width="${w + 80}" height="${H + 80}"><rect x="-40" y="-40" width="${w + 80}" height="${H + 80}" fill="url(#mg)"/></mask>`
+    // 左右の框に近づくほど、枝葉の墨を紙の白へ淡く抜く
+    + `<linearGradient id="sg" x1="0" y1="0" x2="${w}" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#000"/><stop offset="${(80 / w).toFixed(3)}" stop-color="#fff"/><stop offset="${(1 - 80 / w).toFixed(3)}" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>`
+    + `<mask id="side" maskUnits="userSpaceOnUse" x="-40" y="-40" width="${w + 80}" height="${H + 80}"><rect x="-40" y="-40" width="${w + 80}" height="${H + 80}" fill="url(#sg)"/></mask>`;
   const spriteSvg = sprites.map((sp, i) => {
     const [bx, by, bw, bh] = sp.box;
     // にじみのフィルタは、この小さな絵の範囲ちょうどで取る（範囲が絵からはみ出すと変位の計算が合わない）
     const wetHere = wetDef.replace(region, `filterUnits="userSpaceOnUse" x="${bx}" y="${by}" width="${bw}" height="${bh}"`);
     // 墨の縁はもともとにじんでいるので、六割の細かさで描いて引き伸ばしても目立たない。そのぶん軽くなる
     const one = `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.ceil(bw * 0.6)}" height="${Math.ceil(bh * 0.6)}" viewBox="${bx} ${by} ${bw} ${bh}"><defs>${wetHere}${mistMask}<clipPath id="op"><rect width="${w}" height="${H}"/></clipPath></defs>`
-      + `<g clip-path="url(#op)"><g mask="url(#mm)"><g style="mix-blend-mode:multiply" filter="url(#wet)">${sp.ink}</g></g></g></svg>`;
+      + `<g clip-path="url(#op)"><g mask="url(#mm)"><g mask="url(#side)"><g style="mix-blend-mode:multiply" filter="url(#wet)">${sp.ink}</g></g></g></g></svg>`;
     const png = new Resvg(one, NO_FONTS).render().asPng().toString('base64');
     const r = mulberry32(seedOf(8, i, Math.round(sp.pivot[0])));
     return `<image href="data:image/png;base64,${png}" x="${bx + x0}" y="${by}" width="${bw}" height="${bh}" class="sw" style="transform-origin:${f1(sp.pivot[0] + x0)}px ${f1(sp.pivot[1])}px;animation:b${i % 6} ${(3.4 + r() * 2.8).toFixed(2)}s ease-in-out ${(-r() * 6).toFixed(2)}s infinite;mix-blend-mode:multiply"/>`;
