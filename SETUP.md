@@ -1,15 +1,16 @@
 # Profile Playground
 
-目标仓库：`aim-qu/aim-qu`。README 直接展示九个完整场景的操作动画、官方新闻标题和 AA 图表快照；交互版本由 GitHub Pages 托管。
+目标仓库：`aim-qu/aim-qu`。个人主页 README 由三段「活的」画面组成，每段都是由 GitHub Actions 定时或按访客操作重画的图片；可以动手玩的交互页另由 GitHub Pages 托管。
 
 ## 两个入口
 
-- GitHub 个人主页：`README.md`，含雨景横幅、九个完整场景动画、六条新闻标题、AA 图表与原生折叠说明。
-- 可玩的交互页：`site/`。部署入口为 `https://aim-qu.github.io/aim-qu/`。
+- GitHub 个人主页：`README.md`。
+  1. 星空：東経135°・北緯35°此刻的真实星空，白天显示当晚 21 点的星空，每小时重画。折叠「星の名前」里是标了星名的同一片天。
+  2. 障子与七十二候：竹影随实时的日月方位、天气和风变化，夜里点行灯；正中一格写当下的七十二候并盖朱印。折叠「障子をあける」里是拉开一扇后看到的水墨淡彩外景。
+  3. 石を返す：五路盘上的翻石谜题。访客点一颗石，会打开一个写好标题的 issue；提交后 Actions 翻好石子、更新盘面并关闭 issue。
+- 可玩的交互页：`site/`，部署在 `https://aim-qu.github.io/aim-qu/`，README 末尾有入口。
 
-README 不能运行 JavaScript，游戏与指针交互在 Pages 页面内运行。README 中的场景截图是预览，不伪装成可直接操作的 iframe。
-
-交互页从顶部雨景开始连续向下滚动。点灯与记忆游戏合并在同一游戏区，用带动画的选项条切换；其余内容沿页面展开。底部导航跳到对应区域，不隐藏整页其他内容。
+README 不能运行 JavaScript，三段画面都是预先画好的图片：动的部分（星的闪烁、竹叶的摇动、落叶、雨雪）是 SVG 里的 CSS 动画，内容的变化靠定时重画。
 
 ## 本地使用
 
@@ -17,18 +18,30 @@ README 不能运行 JavaScript，游戏与指针交互在 Pages 页面内运行�
 git clone https://github.com/aim-qu/aim-qu.git
 cd aim-qu
 npm ci
-npm run preview
-```
-
-命令会输出本地交互页地址。保持该进程运行，再开一个终端：
-
-```powershell
+npm run live
 npm run preview:readme
 ```
 
-该命令用 GitHub Markdown API 渲染 README，返回另一个地址。本地 README 的 Pages 链接会自动指向已启动的交互页；GitHub 外框为近似布局。
+- `live`：重画星空与障子，写到 `live/`，并改写 README 中 `<!-- live:sky -->`、`<!-- live:shoji -->` 两段。
+- `preview:readme`：生成 `preview/readme-dark.html` 与 `readme-light.html`，按 GitHub 的样式在本地预览 README。
+- 想看别的时刻与天气：`node scripts/live/build.mjs --at=2026-12-22T12:00+09:00 --weather=clear`（`--weather` 还可以是 `cloudy`、`rain`）。看完再跑一次 `npm run live` 恢复成当前的样子。
+- `npm run preview`：启动交互页。
 
-## 场景与操作
+## 生成的流程
+
+- `scripts/live/build.mjs`：入口。星空由 `sky.mjs` 画，障子由 `shoji.mjs` 画，拉开后的外景由 `garden.mjs` 画，竹林的形状在 `bamboo.mjs`，天体位置在 `astro.mjs`。
+- `scripts/live/go.mjs`：翻石谜题。`--move` 由 Actions 调用；`--new` 开新的一局；`--tiles` 重画 `assets/go/` 的棋子图。
+- `scripts/live/glyphs.mjs`：七十二候的字形。只在用字变化时，用本机装的 Noto Serif JP 重新生成 `data/glyphs.json`。
+- 各数据文件的来源与授权见 `data/README.md`。
+
+## 自动更新
+
+- `.github/workflows/live.yml`：每小时第 7 分钟重画星空与障子，有变化才提交。
+- `.github/workflows/go.yml`：有人开标题以「石を返す」开头的 issue 时，翻石、提交、回复并关闭 issue。每一手仓库主人都会收到 issue 通知，可以在仓库的 Watch 设置里调整。
+- `.github/workflows/pages.yml`：每 6 小时发布交互页，不向仓库提交。
+- 前两者会写仓库，共用同一个 concurrency 组，按顺序执行。提交者是 github-actions[bot]，不计入个人的贡献记录。
+
+## 交互页的场景与操作
 
 1. Rain：雨滴下落、折射、指针响应、雨量与暂停、可选雨音。
 2. Terminal：只支持界面列出的本地命令，不执行系统 shell。
@@ -42,36 +55,29 @@ npm run preview:readme
 
 声音默认关闭。游戏记录仅存在浏览器 localStorage，绘画不上传。没有账号注册、访问跟踪、私有项目数据或第三方统计卡片。
 
-## 更新与验证
-
 ```powershell
 npm run refresh
 npm run build
 npm test
 npm run verify
-npm run verify:readme
 ```
 
 - `refresh`：更新公开资料及两个官方 RSS。仅保留公开字段、标题和短摘录。
 - `build`：将公开页面与所需资源复制到 `output/site`。
-- `capture`：在本地交互页启动后，重新录制 README 的雨景 GIF 与九张场景截图。
-- `node scripts/capture-readme.mjs`：在本地交互页启动后，录制九个完整场景的操作动画。
-- `node scripts/build-readme.mjs`：使用已有动画与新闻快照生成长版 README。
 - `verify`：浏览器检查九个场景和真实游戏交互。
-- `verify:readme`：检查 Markdown 渲染、图片、折叠与手机布局。
 
 ## 发布
 
-使用有权限的账号将仓库文件提交到 main；在 GitHub Pages 的构建来源中选择 GitHub Actions。`.github/workflows/pages.yml` 会发布静态页面，并在发布后每 6 小时更新 Pages 的公开数据与新闻快照，不向仓库自动提交数据。README 中的动画、标题与 AA 图片保持已提交的快照；更新 README 时重新生成并提交。
+使用有权限的账号将仓库文件提交到 main；在 GitHub Pages 的构建来源中选择 GitHub Actions。
 
-上传内容包括 README、assets、site、scripts、resources/fonts、package 文件与 .github/workflows。不要上传 node_modules、preview 或 output；它们已被 .gitignore 排除。准备发布时也可以使用 output 下生成的上传压缩包。
+不要上传 node_modules、preview 或 output；它们已被 .gitignore 排除。
 
-AA 使用官方导出的图表图片，附署名、指数版本、来源与取得日期；未配置 API 密钥或定时采集。完整数字榜单与持续自动采集的范围仍需单独确认，见调查文档。
+AA 使用官方导出的图表图片，附署名、指数版本、来源与取得日期，放在 README 末尾的折叠里；未配置 API 密钥或定时采集。完整数字榜单与持续自动采集的范围仍需单独确认，见调查文档。
 
 ## 素材与依赖
 
-雨景由内置 imagegen 参考现有公开头像的雨线与色调生成，原图为 assets/rain-scene.png，头像保留原样。生成过程与提示词记录见 docs/ARTWORK.md。真实雨滴动效由 WebGL 程序叠加，README GIF 录制自实际渲染。
-
-IBM Plex Mono 构建字体及 OFL 授权保留在 resources/fonts；来源与校验值在 sources.json。所有 Node 依赖由 package-lock.json 锁定。
+- 星表：HYG Database v4.1（CC BY-SA 4.0）。天气：Open-Meteo（CC BY 4.0）。七十二候的字形：Noto Serif JP（SIL Open Font License 1.1），授权全文在 `data/OFL-NotoSerifJP.txt`。
+- 交互页的雨景由内置 imagegen 参考现有公开头像的雨线与色调生成，原图为 assets/rain-scene.png，头像保留原样。生成过程与提示词记录见 docs/ARTWORK.md。
+- IBM Plex Mono 构建字体及 OFL 授权保留在 resources/fonts；来源与校验值在 sources.json。所有 Node 依赖由 package-lock.json 锁定；Actions 只安装 `dependencies`（resvg 与 jpeg-js）。
 
 依据：[GitHub Profile README](https://docs.github.com/en/account-and-profile/how-tos/profile-customization/managing-your-profile-readme)、[GitHub Markup](https://github.com/github/markup)、[GitHub Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。

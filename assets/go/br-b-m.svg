@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<defs>
+<filter id="fib" filterUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="6"/><feColorMatrix type="matrix" values="0 0 0 0 0.34  0 0 0 0 0.29  0 0 0 0 0.21  0 0 0 0.1 0"/></filter>
+<filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.6"/></filter>
+<radialGradient id="bk" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#2e2b28"/><stop offset=".7" stop-color="#1c1a18"/><stop offset="1" stop-color="#121110"/></radialGradient>
+<radialGradient id="wh" cx=".42" cy=".38" r=".72"><stop offset="0" stop-color="#fbf8f1"/><stop offset=".72" stop-color="#efe9de"/><stop offset="1" stop-color="#ddd5c7"/></radialGradient>
+</defs>
+<rect width="120" height="120" fill="#ece3d1"/>
+<rect width="120" height="120" filter="url(#fib)"/>
+<path d="M0 60H60M60 0V60" stroke="#4a4239" stroke-opacity=".5" stroke-width="2"/>
+<circle cx="62" cy="64" r="44" fill="#3a3024" opacity=".22" filter="url(#sh)"/>
+<circle cx="60" cy="60" r="44" fill="url(#bk)"/><ellipse cx="46" cy="42" rx="15" ry="9" fill="#fff" opacity=".07" transform="rotate(-30 46 42)"/>
+<circle cx="60" cy="60" r="5.5" fill="#b8341f"/>
+</svg>
