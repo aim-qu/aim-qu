@@ -39,11 +39,11 @@
 <p align="center"><sub><a href="https://aim-qu.github.io/aim-qu/">遊び場をひらく</a>　Rain Beatなど、手で触れる小さな画面があります</sub></p>
 
 <details>
-<summary><sub>AIモデルの順位（2026年9月17日に保存）</sub></summary>
+<summary><sub>AIモデルの順位（2026年10月28日に保存）</sub></summary>
 
-<a href="https://artificialanalysis.ai/#artificial-analysis-intelligence-index"><img src="./assets/aa-intelligence.png" width="100%" alt="Artificial Analysis Intelligence Index v4.3。2026年9月17日取得。"></a>
+<a href="https://artificialanalysis.ai/#artificial-analysis-intelligence-index-chart"><img src="./assets/aa-intelligence.png?v=20261028" width="100%" alt="Artificial Analysis Intelligence Index v5.0。2026年10月28日取得。"></a>
 
-Intelligence Index v4.3、公式の初期表示（26モデル）。保存した時点の画像で、自動では更新していません。出典：[Artificial Analysis](https://artificialanalysis.ai/#artificial-analysis-intelligence-index)
+Intelligence Index v5.0、公式の初期表示（28モデル）。保存した時点の画像で、自動では更新していません。出典：[Artificial Analysis](https://artificialanalysis.ai/#artificial-analysis-intelligence-index-chart)
 
 </details>
 
