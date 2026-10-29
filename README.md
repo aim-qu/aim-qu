@@ -8,11 +8,11 @@
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aoco" width="100%" alt="障子に映る竹の影。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aocu" width="100%" alt="障子に映る竹の影。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
 
 <details>
 <summary><sub>障子をあける</sub></summary>
-<p align="center"><img src="./live/shoji-open.svg?v=aoco" width="100%" alt="障子を一枚あけて見た外の竹林を、水墨の絵にしたもの"></p>
+<p align="center"><img src="./live/shoji-open.svg?v=aocu" width="100%" alt="障子を一枚あけて見た外の竹林を、水墨の絵にしたもの"></p>
 </details>
 <!-- /live:shoji -->
 
