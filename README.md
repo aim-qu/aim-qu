@@ -1,19 +1,9 @@
 <!-- live:sky -->
-<p align="center"><img src="./live/sky.svg?v=aod0" width="100%" alt="今夜21時の北の空（東経135°・北緯35°）"></p>
-
-<details>
-<summary><sub>星の名前</sub></summary>
-<p align="center"><img src="./live/sky-names.svg?v=aod0" width="100%" alt="同じ空に月・惑星・明るい星・星座の名前を重ねたもの"></p>
-</details>
+<p align="center"><img src="./live/sky.svg?v=aocw" width="100%" alt="いまの西南西の空（東経135°・北緯35°）。星と星座の名前が交互に浮かんでは消える"></p>
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aocu" width="100%" alt="障子に映る竹の影。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
-
-<details>
-<summary><sub>障子をあける</sub></summary>
-<p align="center"><img src="./live/shoji-open.svg?v=aocu" width="100%" alt="障子を一枚あけて見た外の竹林を、水墨の絵にしたもの"></p>
-</details>
+<p align="center"><img src="./live/shoji.svg?v=aocw" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
 <!-- /live:shoji -->
 
 <!-- live:go -->

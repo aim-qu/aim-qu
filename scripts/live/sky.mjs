@@ -1,7 +1,7 @@
 // いまの空。東経135°・北緯35°で見上げた、その時刻の本当の星空を横長の一枚にする。
-// 文字や目盛りは入れず、天の川・月・明るい星と惑星がいちばんよく入る方角へ広角で向ける。
+// 目盛りは入れず、天の川・月・明るい星と惑星がいちばんよく入る方角へ広角で向ける。
 // 空の地と暗い星はJPEGに焼き込み、明るい星・惑星・月・流れ星をSVGで重ねて、星だけを瞬かせる。
-// 同じ絵に星の名前を重ねた一枚も作る
+// 星と星座の名前は二組に分け、交互にゆっくり浮かべては消す。名前の出ていない間は字の無い空に戻る
 
 import { readFileSync } from 'node:fs';
 import jpeg from 'jpeg-js';
@@ -443,7 +443,11 @@ export function renderSky({ date, lat, lon, when = 'いま' }) {
 ${kfs.join('\n')}
 .met{opacity:0}
 ${metStyle.join('\n')}
-@media (prefers-reduced-motion:reduce){.tw,.met{animation:none!important}.met{display:none}}
+.na,.nb{opacity:0;animation:28s ease-in-out infinite both}
+.na{animation-name:na}.nb{animation-name:nb}
+@keyframes na{0%,8%{opacity:0}19%,40%{opacity:1}51%,100%{opacity:0}}
+@keyframes nb{0%,51%{opacity:0}62%,84%{opacity:1}95%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.tw,.met{animation:none!important}.met{display:none}.na,.nb{animation:none!important;opacity:1}}
 text{font-family:${FONT_JA}}
 </style>
 <radialGradient id="halo"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".22" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
@@ -454,11 +458,13 @@ ${metGrad.join('\n')}
 ${over.join('\n')}
 ${metLine.join('\n')}`;
 
-  // 名前入り。月・惑星・一等星くらいまでの星とすばる、星座をいくつか。重ならない所にだけ置く
+  // 名前。月・惑星・一等星くらいまでの星とすばるで一組、星座をいくつかと見出しでもう一組にする。
+  // 重ならない所にだけ置き、浮かべる時は左の名前から右へ少しずつ遅らせる
   const boxes = [];
   const textW = (t, size, ls = 0) => [...t].reduce((w, ch) => w + (ch.charCodeAt(0) > 255 ? size : size * 0.6) + ls * size, 0);
   const free = (b) => b[0] > 12 && b[2] < W - 12 && b[1] > 12 && b[3] < H - 12 && boxes.every(o => b[0] > o[2] || b[2] < o[0] || b[1] > o[3] || b[3] < o[1]);
-  const labels = [];
+  const objLabels = [], conLabels = [];
+  const breathe = (cls, x) => `class="${cls}" style="animation-delay:${(clamp(x / W) * 1.2).toFixed(2)}s"`;
   const put = (x, y, gap, text, size, fill) => {
     const w = textW(text, size, 0.08);
     for (const [ox, oy, anchor] of [[gap, -gap * 0.6, 'start'], [-gap, -gap * 0.6, 'end'], [gap, gap * 0.6 + size * 0.8, 'start'], [-gap, gap * 0.6 + size * 0.8, 'end']]) {
@@ -466,7 +472,7 @@ ${metLine.join('\n')}`;
       const b = [x0 - 2, y + oy - size, x0 + w + 2, y + oy + 4];
       if (!free(b)) continue;
       boxes.push(b);
-      labels.push(`<text x="${f1(x + ox)}" y="${f1(y + oy)}" text-anchor="${anchor}" font-size="${size}" fill="${fill}" letter-spacing=".08em">${esc(text)}</text>`);
+      objLabels.push(`<text ${breathe('na', x)} x="${f1(x + ox)}" y="${f1(y + oy)}" text-anchor="${anchor}" font-size="${size}" fill="${fill}" letter-spacing=".08em">${esc(text)}</text>`);
       return;
     }
   };
@@ -508,15 +514,14 @@ ${metLine.join('\n')}`;
       const b = [x - w / 2 - 4, y - 19, x + w / 2 + 4, y + 6];
       if (!free(b)) continue;
       boxes.push(b);
-      labels.push(`<text x="${f1(x)}" y="${f1(y)}" text-anchor="middle" font-size="19" fill="rgba(232,201,154,.58)" letter-spacing=".32em">${esc(name)}</text>`);
+      conLabels.push(`<text ${breathe('nb', x)} x="${f1(x)}" y="${f1(y)}" text-anchor="middle" font-size="19" fill="rgba(232,201,154,.58)" letter-spacing=".32em">${esc(name)}</text>`);
       break;
     }
   }
-  labels.push(`<text x="${W / 2}" y="${H - 22}" text-anchor="middle" font-size="${noteSize}" fill="rgba(232,201,154,.78)" letter-spacing=".3em">${esc(note)}</text>`);
+  conLabels.push(`<text ${breathe('nb', W / 2)} x="${W / 2}" y="${H - 22}" text-anchor="middle" font-size="${noteSize}" fill="rgba(232,201,154,.78)" letter-spacing=".3em">${esc(note)}</text>`);
 
   return {
-    svg: `${head(title)}\n</svg>\n`,
-    named: `${head(`${title}（星の名前入り）`)}\n${labels.join('\n')}\n</svg>\n`,
+    svg: `${head(title)}\n${objLabels.join('\n')}\n${conLabels.join('\n')}\n</svg>\n`,
     info: {
       az: best.az, alt: best.alt, dir, title,
       sunAlt: sun.alt,

@@ -49,40 +49,28 @@ if (sunAltAt(now) < -0.8) {
 }
 
 const t0 = performance.now();
-const { svg, named, info } = renderSky({ date: chart, lat: LAT, lon: LON, when });
+const { svg, info } = renderSky({ date: chart, lat: LAT, lon: LON, when });
 mkdirSync(OUT, { recursive: true });
 writeFileSync(new URL('sky.svg', OUT), svg);
-writeFileSync(new URL('sky-names.svg', OUT), named);
-console.log(`${info.title}  sky.svg ${(svg.length / 1024).toFixed(0)} KB  sky-names.svg ${(named.length / 1024).toFixed(0)} KB  ${(performance.now() - t0).toFixed(0)} ms`);
+console.log(`${info.title}  sky.svg ${(svg.length / 1024).toFixed(0)} KB  ${(performance.now() - t0).toFixed(0)} ms`);
 
 // READMEの空の段。印の間だけを書き換え、ほかの段には触れない。
 // 昼のあいだは同じ「今夜21時」の絵なので、印の値も変わらず書き換えも起きない
 const stamp = Math.floor(chart.getTime() / 3600000).toString(36);
 const block = `<!-- live:sky -->
-<p align="center"><img src="./live/sky.svg?v=${stamp}" width="100%" alt="${info.title}（東経${LON}°・北緯${LAT}°）"></p>
-
-<details>
-<summary><sub>星の名前</sub></summary>
-<p align="center"><img src="./live/sky-names.svg?v=${stamp}" width="100%" alt="同じ空に月・惑星・明るい星・星座の名前を重ねたもの"></p>
-</details>
+<p align="center"><img src="./live/sky.svg?v=${stamp}" width="100%" alt="${info.title}（東経${LON}°・北緯${LAT}°）。星と星座の名前が交互に浮かんでは消える"></p>
 <!-- /live:sky -->`;
 
 // 障子。光は一時間ごとに変わるので、印も一時間ごとに変える
 const weather = await fetchWeather();
 const shoji = renderShoji({ date: now, weather, lat: LAT, lon: LON });
 writeFileSync(new URL('shoji.svg', OUT), shoji.svg);
-writeFileSync(new URL('shoji-open.svg', OUT), shoji.open);
 writeFileSync(new URL('state.json', OUT), JSON.stringify({ generated: now.toISOString(), chart: chart.toISOString(), ...info, shoji: { weather, ...shoji.info } }, null, 2) + '\n');
 console.log(`${shoji.info.kou.name}  shoji.svg ${(shoji.svg.length / 1024).toFixed(0)} KB`);
 const kou = shoji.info.kou;
 const hourStamp = Math.floor(now.getTime() / 3600000).toString(36);
 const shojiBlock = `<!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=${hourStamp}" width="100%" alt="障子に映る竹の影。七十二候の${kou.sekki}${kou.kou}「${kou.name}（${kou.yomi}）」"></p>
-
-<details>
-<summary><sub>障子をあける</sub></summary>
-<p align="center"><img src="./live/shoji-open.svg?v=${hourStamp}" width="100%" alt="障子を一枚あけて見た外の竹林を、水墨の絵にしたもの"></p>
-</details>
+<p align="center"><img src="./live/shoji.svg?v=${hourStamp}" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の${kou.sekki}${kou.kou}「${kou.name}（${kou.yomi}）」"></p>
 <!-- /live:shoji -->`;
 
 let readme = readFileSync(README, 'utf8');

@@ -2,7 +2,8 @@
 // 外の竹の影が、その時刻の日差し（夜は月明かり）の向きどおりに紙へ落ちる。
 // 薄曇りは影が淡く、厚い雲や雨の日は影が消える。風の強さで近い葉の影がそよぐ。夜は部屋の行灯が下から紙を照らす。
 // 紙の一枡に、いまの七十二候を縦書きで書き、節気と候の朱印を押す。
-// 紙・遠い竹の影・行灯の明かりはJPEGに焼き込み、近い竹の影・組子・字をSVGで重ねる
+// 紙・遠い竹の影・行灯の明かりはJPEGに焼き込み、近い竹の影・組子・字をSVGで重ねる。
+// 絵を開いて三秒たつと、中の一枚がひとりでに左へあいて、外の竹林が水墨の絵で見える
 
 import { readFileSync } from 'node:fs';
 import jpeg from 'jpeg-js';
@@ -341,56 +342,67 @@ export function renderShoji({ date, weather, lat, lon }) {
     return name.svg + ys + seal;
   };
 
-  // 二つの絵を組む。あけた方は、中の一枚を左へ引いて左の一枚に重ね、あいた所から外が見える。
-  // 重なった所は紙が二重になって少し暗く、影は紙のある所にだけ落ちる
-  const compose = (open) => {
-    const panels = open ? [JOINTS[0], JOINTS[2]] : [JOINTS[0], JOINTS[1], JOINTS[2]];
-    const { bars, rims, gaps } = frameShapes(panels);
-    const gx0 = JOINTS[1], gx1 = JOINTS[2];
-    const garden = open ? renderGarden({ L, date, x0: gx0, x1: gx1, H, S, Z1 }) : null;
-    const paperClip = open ? ' clip-path="url(#paperArea)"' : '';
-    // 夜は行灯の光で組子の影が紙に落ちる。組子は紙から15mm手前にあるので、影は行灯から離れる向きへ少し広がる
-    const barShade = L.lamp > 0.05
-      ? `<g style="mix-blend-mode:multiply" opacity="${(0.55 * clamp(L.lamp)).toFixed(2)}"${paperClip}><path filter="url(#lampPen)" transform="translate(${LAMP_AT[0]} ${LAMP_AT[1]}) scale(${(1 + 15 / (LAMP_D - 15)).toFixed(4)}) translate(${-LAMP_AT[0]} ${-LAMP_AT[1]})" d="${bars.join('')}" fill="#5b4a3a"/></g>`
-      : '';
-    const label = open ? `障子を一枚あけて見た外の竹と空。七十二候「${kou.name}」` : `障子に映る竹の影と、七十二候「${kou.name}」`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${label}">
+  // 絵を開いて三秒たつと、中の一枚を左へ引いて左の一枚に重ねる。引くのは框と組子と字で、
+  // 紙に落ちる竹の影はその場に残る。影は外の竹と日差しで決まるので、紙が動いても動かない。
+  // あいた所は、引く一枚の右の框と一緒に左へ動く切り抜きを作り、その中で外の絵だけを止めたまま見せる。
+  // 重なった所は紙が二重になって少し暗い
+  const side = frameShapes([JOINTS[0], JOINTS[2]]);
+  const mid = frameShapes([JOINTS[1]]);
+  const gx0 = JOINTS[1], gx1 = JOINTS[2];
+  const garden = renderGarden({ L, date, x0: gx0, x1: gx1, H, S, Z1 });
+  // 召し合わせの細い隙間は、引く一枚の両端に付けて一緒に動かす
+  const midGaps = [gx0, gx1].map(x => `M${f1(x - 1.2)} 0h2.4V${H}h-2.4Z`).join('');
+  // 夜は行灯の光で組子の影が紙に落ちる。組子は紙から15mm手前にあるので、影は行灯から離れる向きへ少し広がる。
+  // 引く一枚の分は乗算にせず、同じくらいの濃さの黒を重ねる。動かす要素の中では、下の紙と乗算できないことがあるため
+  const lampScale = `translate(${LAMP_AT[0]} ${LAMP_AT[1]}) scale(${(1 + 15 / (LAMP_D - 15)).toFixed(4)}) translate(${-LAMP_AT[0]} ${-LAMP_AT[1]})`;
+  const barShade = (bars, fill, op, blend) => L.lamp > 0.05
+    ? `<g${blend ? ' style="mix-blend-mode:multiply"' : ''} opacity="${(op * clamp(L.lamp)).toFixed(2)}"><path filter="url(#lampPen)" transform="${lampScale}" d="${bars.join('')}" fill="${fill}"/></g>`
+    : '';
+  const shift = f1(PANEL_W);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="障子に映る竹の影と、七十二候「${kou.name}」。三秒たつと一枚があいて、外の竹林が見える">
 <defs>
 <style>
 ${kfs.join('\n')}
-${garden ? garden.kfs.join('\n') : ''}
+${garden.kfs.join('\n')}
 .sw{transform-box:view-box}
 .ch{animation:ink .7s ease-out both}
 .seal{animation:ink .5s ease-out both}
+.mv,.mvb{animation:1.8s cubic-bezier(.45,0,.2,1) 3s both}
+.mv{animation-name:pull}.mvb{animation-name:stay}
 @keyframes ink{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.sw,.ch,.seal{animation:none!important}}
+@keyframes pull{from{transform:translateX(0)}to{transform:translateX(-${shift}px)}}
+@keyframes stay{from{transform:translateX(0)}to{transform:translateX(${shift}px)}}
+@media (prefers-reduced-motion:reduce){.sw,.ch,.seal{animation:none!important}.mv{animation:none!important;transform:translateX(-${shift}px)}.mvb{animation:none!important;transform:translateX(${shift}px)}}
 </style>
 <filter id="pen" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="${sig.toFixed(2)}"/></filter>
 <filter id="lampPen" x="-2%" y="-2%" width="104%" height="104%"><feGaussianBlur stdDeviation="2.2"/></filter>
-${garden ? garden.defs : ''}
-${open ? `<clipPath id="paperArea"><rect width="${f1(gx0)}" height="${H}"/><rect x="${f1(gx1)}" width="${f1(W - gx1)}" height="${H}"/></clipPath><clipPath id="opening"><rect x="${f1(gx0)}" width="${f1(gx1 - gx0)}" height="${H}"/></clipPath>` : ''}
+${garden.defs}
+<clipPath id="midArea"><rect x="${f1(gx0)}" width="${shift}" height="${H}"/></clipPath>
+<clipPath id="reveal"><rect x="${f1(gx1)}" width="${shift}" height="${H}"/></clipPath>
+<clipPath id="leftArea"><rect x="${f1(JOINTS[0])}" width="${shift}" height="${H}"/></clipPath>
 <radialGradient id="wood" gradientUnits="userSpaceOnUse" cx="${LAMP_AT[0]}" cy="${LAMP_AT[1]}" r="1500">
 ${[0, 0.25, 0.5, 0.75, 1].map(o => `<stop offset="${o}" stop-color="${hex(woodDay.map((v, i) => v + woodLamp[i] * lampFall(LAMP_AT[0] + o * 1500, LAMP_AT[1])))}"/>`).join('')}
 </radialGradient>
 </defs>
 <image href="data:image/jpeg;base64,${paperJpeg}" width="${W}" height="${H}"/>
-${open ? `<rect x="${f1(JOINTS[0])}" width="${f1(PANEL_W)}" height="${H}" fill="#000" opacity=".16"/>` : ''}
-${garden ? `<image href="data:image/jpeg;base64,${garden.jpg}" x="${f1(gx0)}" width="${garden.w}" height="${H}" clip-path="url(#opening)"/>` : ''}
-${open ? shadowSvg.replace('<g style="mix-blend-mode:multiply">', '<g style="mix-blend-mode:multiply" clip-path="url(#paperArea)">') : shadowSvg}
-${barShade}
-${garden ? garden.sprites : ''}
-${garden ? `<g clip-path="url(#opening)">${garden.overlay}</g>` : ''}
-<path d="${rims.join('')}" fill="${hex(rim)}" opacity=".8"/>
-<path d="${bars.join('')}" fill="${woodFill}"/>
-<path d="${gaps.join('')}" fill="#000" opacity=".22"/>
-${writing(open ? -PANEL_W : 0)}
+${shadowSvg}
+${barShade(side.bars, '#5b4a3a', 0.55, true)}
+<g clip-path="url(#midArea)"><g class="mv"><g clip-path="url(#reveal)"><g class="mvb"><image href="data:image/jpeg;base64,${garden.jpg}" x="${f1(gx0)}" width="${garden.w}" height="${H}"/>${garden.sprites}${garden.overlay}</g></g></g></g>
+<path d="${side.rims.join('')}" fill="${hex(rim)}" opacity=".8"/>
+<path d="${side.bars.join('')}" fill="${woodFill}"/>
+<g clip-path="url(#leftArea)"><rect class="mv" x="${f1(gx0)}" width="${shift}" height="${H}" fill="#000" opacity=".16"/></g>
+<g class="mv">
+${barShade(mid.bars, '#000', 0.39, false)}
+<path d="${mid.rims.join('')}" fill="${hex(rim)}" opacity=".8"/>
+<path d="${mid.bars.join('')}" fill="${woodFill}"/>
+<path d="${midGaps}" fill="#000" opacity=".22"/>
+${writing(0)}
+</g>
 </svg>
 `;
-  };
 
   return {
-    svg: compose(false),
-    open: compose(true),
+    svg,
     info: {
       kou: { n: kou.n, name: kou.name, yomi: kou.yomi, sekki: kou.sekki, kou: kou.kou },
       light: L.src ? { kind: L.src.kind, k: +L.src.k.toFixed(2), dA: +L.src.dA.toFixed(1), alt: +L.src.alt.toFixed(1) } : null,
