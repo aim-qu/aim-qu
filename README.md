@@ -28,7 +28,7 @@
 
 <p align="center"><sub><a href="https://aim-qu.github.io/aim-qu/">遊び場をひらく</a>　Rain Beatなど、手で触れる小さな画面があります</sub></p>
 
-<details>
+<details open>
 <summary><sub>AIモデルの順位（2026年10月28日に保存）</sub></summary>
 
 <a href="https://artificialanalysis.ai/#artificial-analysis-intelligence-index-chart"><img src="./assets/aa-intelligence.png?v=20261028" width="100%" alt="Artificial Analysis Intelligence Index v5.0。2026年10月28日取得。"></a>
@@ -38,3 +38,5 @@ Intelligence Index v5.0、公式の初期表示（28モデル）。保存した�
 </details>
 
 <sub>星の位置は[HYG Database v4.1](https://github.com/astronexus/HYG-Database)（CC BY-SA 4.0）、天気は[Weather data by Open-Meteo.com](https://open-meteo.com/)（CC BY 4.0）、字形は[Noto Serif JP](./data/OFL-NotoSerifJP.txt)（SIL Open Font License 1.1）、七十二候は略本暦によります。空と障子の絵は一時間ごとにGitHub Actionsで描き直しています。</sub>
+
+<br><br><br><br><br><br>
