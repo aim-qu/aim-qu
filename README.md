@@ -1,9 +1,9 @@
 <!-- live:sky -->
-<p align="center"><img src="./live/sky.svg?v=aocw" width="100%" alt="いまの西南西の空（東経135°・北緯35°）。星と星座の名前が交互に浮かんでは消える"></p>
+<p align="center"><img src="./live/sky.svg?v=aod2" width="100%" alt="いまの北北東の空（東経135°・北緯35°）。星と星座の名前が交互に浮かんでは消える"></p>
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aocw" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aod2" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
 <!-- /live:shoji -->
 
 <!-- live:go -->
