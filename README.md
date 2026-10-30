@@ -3,7 +3,7 @@
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aodc" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aodj" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の霜降次候「霎時施（こさめときどきふる）」"></p>
 <!-- /live:shoji -->
 
 <!-- live:go -->
