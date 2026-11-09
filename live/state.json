@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08T23:40:00.000Z",
+  "generated": "2026-11-09T06:10:00.000Z",
   "chart": "2026-11-09T12:00:00.000Z",
   "az": 0,
   "alt": 68,
@@ -17,10 +17,10 @@
   "stars": 4428,
   "shoji": {
     "weather": {
-      "cloud": 65,
-      "code": 2,
+      "cloud": 92,
+      "code": 3,
       "precip": 0,
-      "wind": 3.6
+      "wind": 3.7
     },
     "kou": {
       "n": 55,
@@ -31,14 +31,14 @@
     },
     "light": {
       "kind": "sun",
-      "k": 0.4,
-      "dA": -48,
-      "alt": 22.4
+      "k": 0.09,
+      "dA": 52.3,
+      "alt": 18.8
     },
-    "sunAlt": 22.4,
-    "cloud": 0.65,
+    "sunAlt": 18.8,
+    "cloud": 0.92,
     "wet": false,
-    "wind": 3.6,
+    "wind": 3.7,
     "lamp": 0
   }
 }
