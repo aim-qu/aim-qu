@@ -1,9 +1,9 @@
 <!-- live:sky -->
-<p align="center"><img src="./live/sky.svg?v=aol0" width="100%" alt="今夜21時の北の空（東経135°・北緯35°）。星と星座の名前が交互に浮かんでは消える"></p>
+<p align="center"><img src="./live/sky.svg?v=aokx" width="100%" alt="いまの北西の空（東経135°・北緯35°）。星と星座の名前が交互に浮かんでは消える"></p>
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aokp" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の立冬初候「山茶始開（つばきはじめてひらく）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aokx" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の立冬初候「山茶始開（つばきはじめてひらく）」"></p>
 <!-- /live:shoji -->
 
 <!-- live:go -->
