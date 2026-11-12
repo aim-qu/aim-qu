@@ -3,7 +3,7 @@
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aolx" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の立冬初候「山茶始開（つばきはじめてひらく）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aom2" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の立冬初候「山茶始開（つばきはじめてひらく）」"></p>
 <!-- /live:shoji -->
 
 <!-- live:go -->
