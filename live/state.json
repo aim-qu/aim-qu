@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-13T00:13:00.000Z",
+  "generated": "2026-11-13T07:51:00.000Z",
   "chart": "2026-11-13T12:00:00.000Z",
   "az": 0,
   "alt": 68,
@@ -16,12 +16,7 @@
   "planets": [],
   "stars": 4424,
   "shoji": {
-    "weather": {
-      "cloud": 31,
-      "code": 1,
-      "precip": 0,
-      "wind": 0.4
-    },
+    "weather": null,
     "kou": {
       "n": 56,
       "name": "地始凍",
@@ -29,16 +24,11 @@
       "sekki": "立冬",
       "kou": "次候"
     },
-    "light": {
-      "kind": "sun",
-      "k": 0.75,
-      "dA": -40.5,
-      "alt": 26.1
-    },
-    "sunAlt": 26.1,
-    "cloud": 0.31,
+    "light": null,
+    "sunAlt": 0.6,
+    "cloud": 0.15,
     "wet": false,
-    "wind": 0.4,
-    "lamp": 0
+    "wind": 6,
+    "lamp": 0.27
   }
 }
