@@ -3,7 +3,7 @@
 <!-- /live:sky -->
 
 <!-- live:shoji -->
-<p align="center"><img src="./live/shoji.svg?v=aosn" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の立冬末候「金盞香（きんせんかさく）」"></p>
+<p align="center"><img src="./live/shoji.svg?v=aosu" width="100%" alt="障子に映る竹の影。三秒たつと一枚があいて、外の竹林が見える。七十二候の立冬末候「金盞香（きんせんかさく）」"></p>
 <!-- /live:shoji -->
 
 <!-- live:go -->
