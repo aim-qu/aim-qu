@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-22T21:42:00.000Z",
+  "generated": "2026-11-23T02:37:00.000Z",
   "chart": "2026-11-23T12:00:00.000Z",
   "az": 130,
   "alt": 68,
@@ -18,7 +18,12 @@
   ],
   "stars": 463,
   "shoji": {
-    "weather": null,
+    "weather": {
+      "cloud": 0,
+      "code": 0,
+      "precip": 0,
+      "wind": 7.2
+    },
     "kou": {
       "n": 58,
       "name": "虹蔵不見",
@@ -26,11 +31,16 @@
       "sekki": "小雪",
       "kou": "初候"
     },
-    "light": null,
-    "sunAlt": -0.2,
-    "cloud": 0.15,
+    "light": {
+      "kind": "sun",
+      "k": 1,
+      "dA": -2.6,
+      "alt": 34.7
+    },
+    "sunAlt": 34.7,
+    "cloud": 0,
     "wet": false,
-    "wind": 6,
-    "lamp": 0.33
+    "wind": 7.2,
+    "lamp": 0
   }
 }
